@@ -55,7 +55,7 @@ public class SearchableDictionary extends Activity {
 
         mTextView = (TextView) findViewById(R.id.text);
         mListView = (ListView) findViewById(R.id.list);
-
+        
         handleIntent(getIntent());
     }
 
@@ -70,6 +70,8 @@ public class SearchableDictionary extends Activity {
 
     private void handleIntent(Intent intent) {
     	Log.d(TAG, "intent :" + intent);
+//    	判断搜索栏结果
+//    	搜索提示点击word打开WordActivity.class
         if (Intent.ACTION_VIEW.equals(intent.getAction())) {
         	Log.d(TAG, "intent.ACTION_VIEW :" + Intent.ACTION_VIEW);
             // handles a click on a search suggestion; launches activity to show word
@@ -77,6 +79,7 @@ public class SearchableDictionary extends Activity {
             wordIntent.setData(intent.getData());
             Log.d(TAG, "wordIntent :" + wordIntent);
             startActivity(wordIntent);
+//            点击搜索按钮，使用搜索内容调用showResults方法
         } else if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
         	Log.d(TAG, "intent.ACTION_SEARCH :" + Intent.ACTION_SEARCH);
         	// handles a search query
@@ -92,17 +95,21 @@ public class SearchableDictionary extends Activity {
      * Searches the dictionary and displays results for the given query.
      * @param query The search query
      */
+//    showResults方法
     private void showResults(String query) {
 
+//    	通过query参数获得cursor
         Cursor cursor = managedQuery(DictionaryProvider.CONTENT_URI, null, null, new String[] {query}, null);
     	Log.d(TAG, "CONTENT_URI :" + DictionaryProvider.CONTENT_URI);
 
 
         if (cursor == null) {
             // There are no results
+//        	指针cursor为空提示
             mTextView.setText(getString(R.string.no_results, new Object[] {query}));
         } else {
             // Display the number of results
+//        	指针计数提示搜索结果数量
             int count = cursor.getCount();
             String countString = getResources().getQuantityString(R.plurals.search_results,
                                     count, new Object[] {count, query});
@@ -137,6 +144,7 @@ public class SearchableDictionary extends Activity {
             });
         }
     }
+
 
     @SuppressLint("NewApi")
 	@Override

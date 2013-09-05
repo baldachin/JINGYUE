@@ -53,6 +53,7 @@ public class DictionaryProvider extends ContentProvider {
     /**
      * Builds up a UriMatcher for search suggestion and shortcut refresh queries.
      */
+//    UriMatcher生成搜索建议和刷新查询？
     private static UriMatcher buildUriMatcher() {
         UriMatcher matcher =  new UriMatcher(UriMatcher.NO_MATCH);
         // to get definitions...
