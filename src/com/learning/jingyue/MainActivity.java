@@ -14,14 +14,12 @@ import android.widget.SimpleCursorAdapter;
 
 public class MainActivity extends ListActivity {
 
-	SQLiteDatabase db;
-	DbHelper dbHelper;
+	DictionaryDatabase db;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		dbHelper = new DbHelper(this);
-		db = dbHelper.getReadableDatabase();
-		Cursor cursor = db.query(DbHelper.TABLE, null, null, null, null, null,null);
+        db = new DictionaryDatabase(this);
+//		Cursor cursor = db.query("FTSdictionary", null, null);
 //		SimpleCursorAdapter adapter = new SimpleCursorAdapter(this,R.layout.list, cursor, new String[]{DbHelper.C_TYPE, DbHelper.C_WORD, DbHelper.C_NUM, DbHelper.C_DEFINITION},new int[]{R.id.type, R.id.word, R.id.num, R.id.definition});
 //		setListAdapter(adapter);
 

@@ -122,7 +122,9 @@ public class DictionaryDatabase {
      */
     //提供cursor方法，参数：查询、列（数组），获取指定匹配KEY_WORD内容，返回query对象
     public Cursor getWordMatches(String query, String[] columns) {
-        String selection = D_WORD + " MATCH ?";
+//        String selection = " MATCH ?";
+        String selection = null;
+//        String selection = D_WORD + " MATCH ?";
         String[] selectionArgs = new String[] {query+"*"};
 
         return query(selection, selectionArgs, columns);
