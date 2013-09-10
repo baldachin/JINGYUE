@@ -22,11 +22,11 @@ public class DbHelper extends SQLiteOpenHelper {
 
 	static final String TAG = "DbHelper";
 
-	static final String DB_NAME = "jingyue.db";
+	static final String DB_NAME = "jingyue";
 
 	static final int DB_VERSION = 5;
 
-	static final String TABLE = "list";
+	static final String TABLE = "list01";
 
 	static final String C_ID = BaseColumns._ID;
 

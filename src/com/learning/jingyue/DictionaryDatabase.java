@@ -42,7 +42,7 @@ public class DictionaryDatabase {
     private static final String TAG = "DictionaryDatabase";
 
     //The columns we'll include in the dictionary table
-    //×Öµä±íÊı¾İÁĞ£¬Ôİ²»Ê¹ÓÃsuggest²ÎÊı
+    //å®šä¹‰SearchManager.SUGGESTä½œä¸ºæœç´¢æ¡†å†…å®¹
     public static final String D_WORD = SearchManager.SUGGEST_COLUMN_TEXT_1;
     public static final String D_DEFINITION = SearchManager.SUGGEST_COLUMN_TEXT_2;
     public static final String D_TYPE = "type";
@@ -51,21 +51,21 @@ public class DictionaryDatabase {
 //    public static final String D_DEFINITION = "definition";
     
 
-    //Êı¾İ¿â²ÎÊı
+    //æ•°æ®åº“å‚æ•°
     private static final String DATABASE_NAME = "dictionary";
     private static final String FTS_VIRTUAL_TABLE = "FTSdictionary";
     private static final int DATABASE_VERSION = 1;
 
-    //ÉùÃ÷DbHelper
+    //å£°æ˜DbHelper
     private final DictionaryOpenHelper mDatabaseOpenHelper;
-    //Éú³É¹şÏ£map
+    //å£°æ˜å“ˆå¸Œmap
     private static final HashMap<String,String> mColumnMap = buildColumnMap();
 
     /**
      * Constructor
      * @param context The Context within which to work, used to create the DB
      */
-    //¹¹Ôìº¯Êı£¬È¡context²ÎÊıÊµÀı»¯Dbhelper
+    //æ„é€ å‡½æ•°ï¼Œå–contextå‚æ•°å®ä¾‹DbHelp
     public DictionaryDatabase(Context context) {
         mDatabaseOpenHelper = new DictionaryOpenHelper(context);
     }
@@ -76,7 +76,7 @@ public class DictionaryDatabase {
      * all columns, even if the value is the key. This allows the ContentProvider to request
      * columns w/o the need to know real column names and create the alias itself.
      */
-    //¹şÏ£±íÉú³É·½·¨
+    //ï¿½ï¿½Ï£ï¿½ï¿½ï¿½ï¿½É·ï¿½ï¿½ï¿½
     private static HashMap<String,String> buildColumnMap() {
         HashMap<String,String> map = new HashMap<String,String>();
         map.put(D_TYPE, D_TYPE);
@@ -86,7 +86,7 @@ public class DictionaryDatabase {
         map.put(BaseColumns._ID, "rowid AS " +
                 BaseColumns._ID);
         
-        //ËÑË÷¸¡¶¯£¿suggestÏà¹ØÔİ²»Ê¹ÓÃ
+        //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½suggestï¿½ï¿½ï¿½ï¿½İ²ï¿½Ê¹ï¿½ï¿½
         map.put(SearchManager.SUGGEST_COLUMN_INTENT_DATA_ID, "rowid AS " +
                 SearchManager.SUGGEST_COLUMN_INTENT_DATA_ID);
         map.put(SearchManager.SUGGEST_COLUMN_SHORTCUT_ID, "rowid AS " +
@@ -101,7 +101,7 @@ public class DictionaryDatabase {
      * @param columns The columns to include, if null then all are included
      * @return Cursor positioned to matching word, or null if not found.
      */
-    //Ìá¹©cursor·½·¨£¬²ÎÊı£ºĞĞid¡¢ÁĞ£¨Êı×é£©£¬»ñÈ¡Ö¸¶¨ĞĞÊı¾İ£¬·µ»Øquery¶ÔÏó
+    //ï¿½á¹©cursorï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½idï¿½ï¿½ï¿½Ğ£ï¿½ï¿½ï¿½ï¿½é£©ï¿½ï¿½ï¿½ï¿½È¡Ö¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½İ£ï¿½ï¿½ï¿½ï¿½ï¿½queryï¿½ï¿½ï¿½ï¿½
     public Cursor getWord(String rowId, String[] columns) {
         String selection = "rowid = ?";
         String[] selectionArgs = new String[] {rowId};
@@ -120,7 +120,7 @@ public class DictionaryDatabase {
      * @param columns The columns to include, if null then all are included
      * @return Cursor over all words that match, or null if none found.
      */
-    //Ìá¹©cursor·½·¨£¬²ÎÊı£º²éÑ¯¡¢ÁĞ£¨Êı×é£©£¬»ñÈ¡Ö¸¶¨Æ¥ÅäKEY_WORDÄÚÈİ£¬·µ»Øquery¶ÔÏó
+    //ï¿½á¹©cursorï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¯ï¿½ï¿½ï¿½Ğ£ï¿½ï¿½ï¿½ï¿½é£©ï¿½ï¿½ï¿½ï¿½È¡Ö¸ï¿½ï¿½Æ¥ï¿½ï¿½KEY_WORDï¿½ï¿½ï¿½İ£ï¿½ï¿½ï¿½ï¿½ï¿½queryï¿½ï¿½ï¿½ï¿½
     public Cursor getWordMatches(String query, String[] columns) {
 //        String selection = " MATCH ?";
         String selection = null;
@@ -151,23 +151,23 @@ public class DictionaryDatabase {
      * @param columns The columns to return
      * @return A Cursor over all rows matching the query
      */
-    //query·½·¨
+    //queryï¿½ï¿½ï¿½ï¿½
     private Cursor query(String selection, String[] selectionArgs, String[] columns) {
         /* The SQLiteBuilder provides a map for all possible columns requested to
          * actual columns in the database, creating a simple column alias mechanism
          * by which the ContentProvider does not need to know the real column names
          */
-    	//Í¨¹ıSQLiteQueryBuilderÊµÀıÉú³É²éÑ¯
+    	//Í¨ï¿½ï¿½SQLiteQueryBuilderÊµï¿½ï¿½ï¿½ï¿½É²ï¿½Ñ¯
         SQLiteQueryBuilder builder = new SQLiteQueryBuilder();
         builder.setTables(FTS_VIRTUAL_TABLE);
-        //ÕâÀïÊ¹ÓÃ¹şÏ£±íÎªbuilder²ÎÊı
+        //ï¿½ï¿½ï¿½ï¿½Ê¹ï¿½Ã¹ï¿½Ï£ï¿½ï¿½Îªbuilderï¿½ï¿½ï¿½ï¿½
         builder.setProjectionMap(mColumnMap);
 
-        //Í¨¹ıbuilder²éÑ¯Éú³ÉÖ¸Õë
+        //Í¨ï¿½ï¿½builderï¿½ï¿½Ñ¯ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½
         Cursor cursor = builder.query(mDatabaseOpenHelper.getReadableDatabase(),
                 columns, selection, selectionArgs, null, null, null);
 
-        //¿ÕÖ¸ÕëÂß¼­
+        //ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½ß¼ï¿½
         if (cursor == null) {
             return null;
         } else if (!cursor.moveToFirst()) {
@@ -181,7 +181,7 @@ public class DictionaryDatabase {
     /**
      * This creates/opens the database.
      */
-    //Ê¹ÓÃDbHelperÀà£¬´´½¨&·ÃÎÊÊı¾İ¿â
+    //Ê¹ï¿½ï¿½DbHelperï¿½à£¬ï¿½ï¿½ï¿½ï¿½&ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½İ¿ï¿½
     private static class DictionaryOpenHelper extends SQLiteOpenHelper {
 
         private final Context mHelperContext;
@@ -199,7 +199,7 @@ public class DictionaryDatabase {
                     D_WORD + ", " +
                     D_DEFINITION + ");";
 
-        //DbHelper¹¹Ôìº¯Êı
+        //DbHelperï¿½ï¿½ï¿½ìº¯ï¿½ï¿½
         DictionaryOpenHelper(Context context) {
             super(context, DATABASE_NAME, null, DATABASE_VERSION);
             mHelperContext = context;
@@ -208,22 +208,22 @@ public class DictionaryDatabase {
         @Override
         public void onCreate(SQLiteDatabase db) {
             mDatabase = db;
-            //Ê¹ÓÃexecSQL·½·¨½¨±í
+            //Ê¹ï¿½ï¿½execSQLï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
             mDatabase.execSQL(FTS_TABLE_CREATE);
-            //Ê¹ÓÃloadDictionary·½·¨µ¼ÈëÊı¾İ
+            //Ê¹ï¿½ï¿½loadDictionaryï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
             loadDictionary();
         }
 
         /**
          * Starts a thread to load the database table with words
          */
-        //loadDictionary·½·¨
+        //loadDictionaryï¿½ï¿½ï¿½ï¿½
         private void loadDictionary() {
-        	//ĞÂÏß³Ì
+        	//ï¿½ï¿½ï¿½ß³ï¿½
             new Thread(new Runnable() {
                 public void run() {
                     try {
-                    	//loadWords·½·¨
+                    	//loadWordsï¿½ï¿½ï¿½ï¿½
                         loadWords();
                     } catch (IOException e) {
                         throw new RuntimeException(e);
@@ -232,14 +232,14 @@ public class DictionaryDatabase {
             }).start();
         }
 
-        //loadWords·½·¨£¬
+        //loadWordsï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         private void loadWords() throws IOException {
             Log.d(TAG, "Loading words...");
-            //Í¨¹ıcontext»ñÈ¡resources£¿
+            //Í¨ï¿½ï¿½contextï¿½ï¿½È¡resourcesï¿½ï¿½
             final Resources resources = mHelperContext.getResources();
-            //ÊµÀı»¯InputStream¶ÔÏó£¬Í¨¹ıopenRawResource·½·¨»ñÈ¡definitionsÎÄ¼şÁ÷
+            //Êµï¿½ï¿½InputStreamï¿½ï¿½ï¿½ï¿½Í¨ï¿½ï¿½openRawResourceï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¡definitionsï¿½Ä¼ï¿½ï¿½ï¿½
             InputStream inputStream = resources.openRawResource(R.raw.list);
-            //ÊµÀı»¯reader¶ÔÏó£¬µ¼ÈëinputstreamÄÚÈİ
+            //Êµï¿½ï¿½readerï¿½ï¿½ï¿½ó£¬µï¿½ï¿½ï¿½inputstreamï¿½ï¿½ï¿½ï¿½
             BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
 
             try {
