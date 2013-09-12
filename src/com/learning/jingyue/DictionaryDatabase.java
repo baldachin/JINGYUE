@@ -217,13 +217,13 @@ public class DictionaryDatabase {
         /**
          * Starts a thread to load the database table with words
          */
-        //loadDictionary����
+        //loadDictionary方法
         private void loadDictionary() {
-        	//���߳�
+        	//新线程执行
             new Thread(new Runnable() {
                 public void run() {
                     try {
-                    	//loadWords����
+                    	//loadWords方法
                         loadWords();
                     } catch (IOException e) {
                         throw new RuntimeException(e);
@@ -232,14 +232,14 @@ public class DictionaryDatabase {
             }).start();
         }
 
-        //loadWords������
+        //loadWords方法
         private void loadWords() throws IOException {
             Log.d(TAG, "Loading words...");
-            //ͨ��context��ȡresources��
+            //通过Context参数获取资源实例
             final Resources resources = mHelperContext.getResources();
-            //ʵ��InputStream����ͨ��openRawResource������ȡdefinitions�ļ���
+            //使用InputStream对象获取Raw资源
             InputStream inputStream = resources.openRawResource(R.raw.list);
-            //ʵ��reader���󣬵���inputstream����
+            //使用BufferedReader获取InputStream对象
             BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
 
             try {
