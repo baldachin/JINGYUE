@@ -76,7 +76,7 @@ public class DictionaryDatabase {
      * all columns, even if the value is the key. This allows the ContentProvider to request
      * columns w/o the need to know real column names and create the alias itself.
      */
-    //��ϣ����ɷ���
+    //哈希表构建方法
     private static HashMap<String,String> buildColumnMap() {
         HashMap<String,String> map = new HashMap<String,String>();
         map.put(D_TYPE, D_TYPE);
@@ -86,7 +86,7 @@ public class DictionaryDatabase {
         map.put(BaseColumns._ID, "rowid AS " +
                 BaseColumns._ID);
         
-        //����������suggest����ݲ�ʹ��
+        //搜索弹出项定义
         map.put(SearchManager.SUGGEST_COLUMN_INTENT_DATA_ID, "rowid AS " +
                 SearchManager.SUGGEST_COLUMN_INTENT_DATA_ID);
         map.put(SearchManager.SUGGEST_COLUMN_SHORTCUT_ID, "rowid AS " +
@@ -101,7 +101,7 @@ public class DictionaryDatabase {
      * @param columns The columns to include, if null then all are included
      * @return Cursor positioned to matching word, or null if not found.
      */
-    //�ṩcursor������������id���У����飩����ȡָ������ݣ�����query����
+    //通过明确指定rowId获得单一数据
     public Cursor getWord(String rowId, String[] columns) {
         String selection = "rowid = ?";
         String[] selectionArgs = new String[] {rowId};
@@ -120,10 +120,10 @@ public class DictionaryDatabase {
      * @param columns The columns to include, if null then all are included
      * @return Cursor over all words that match, or null if none found.
      */
-    //�ṩcursor�����������ѯ���У����飩����ȡָ��ƥ��KEY_WORD���ݣ�����query����
+    //通过query参数获得全文检索结果
     public Cursor getWordMatches(String query, String[] columns) {
-//        String selection = " MATCH ?";
-        String selection = null;
+        String selection = FTS_VIRTUAL_TABLE + " MATCH ?";
+//        String selection = null;
 //        String selection = D_WORD + " MATCH ?";
         String[] selectionArgs = new String[] {query+"*"};
 
