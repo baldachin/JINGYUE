@@ -70,8 +70,8 @@ public class SearchableDictionary extends Activity {
 
     private void handleIntent(Intent intent) {
     	Log.d(TAG, "intent :" + intent);
-//    	ï¿½Ð¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-//    	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½wordï¿½ï¿½WordActivity.class
+//    	ÅÐ¶ÏËÑË÷À¸½á¹û
+//    	ËÑË÷ÌáÊ¾µã»÷word´ò¿ªWordActivity.class
         if (Intent.ACTION_VIEW.equals(intent.getAction())) {
         	Log.d(TAG, "intent.ACTION_VIEW :" + Intent.ACTION_VIEW);
             // handles a click on a search suggestion; launches activity to show word
@@ -79,7 +79,7 @@ public class SearchableDictionary extends Activity {
             wordIntent.setData(intent.getData());
             Log.d(TAG, "wordIntent :" + wordIntent);
             startActivity(wordIntent);
-//            ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å¥ï¿½ï¿½Ê¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ýµï¿½ï¿½ï¿½showResultsï¿½ï¿½ï¿½ï¿½
+//            µã»÷ËÑË÷°´Å¥£¬Ê¹ÓÃËÑË÷ÄÚÈÝµ÷ÓÃshowResults·½·¨
         } else if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
         	Log.d(TAG, "intent.ACTION_SEARCH :" + Intent.ACTION_SEARCH);
         	// handles a search query
@@ -95,21 +95,21 @@ public class SearchableDictionary extends Activity {
      * Searches the dictionary and displays results for the given query.
      * @param query The search query
      */
-//    showResultsï¿½ï¿½ï¿½ï¿½
+//    showResults·½·¨
     private void showResults(String query) {
 
-//    	Í¨ï¿½ï¿½queryï¿½ï¿½ï¿½ï¿½ï¿½ï¿½cursor
+//    	Í¨¹ýquery²ÎÊý»ñµÃcursor
         Cursor cursor = managedQuery(DictionaryProvider.CONTENT_URI, null, null, new String[] {query}, null);
     	Log.d(TAG, "CONTENT_URI :" + DictionaryProvider.CONTENT_URI);
 
 
         if (cursor == null) {
             // There are no results
-//        	Ö¸ï¿½ï¿½cursorÎªï¿½ï¿½ï¿½ï¿½Ê¾
+//        	Ö¸ÕëcursorÎª¿ÕÌáÊ¾
             mTextView.setText(getString(R.string.no_results, new Object[] {query}));
         } else {
             // Display the number of results
-//        	Ö¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+//        	Ö¸Õë¼ÆÊýÌáÊ¾ËÑË÷½á¹ûÊýÁ¿
             int count = cursor.getCount();
             String countString = getResources().getQuantityString(R.plurals.search_results,
                                     count, new Object[] {count, query});
@@ -138,7 +138,6 @@ public class SearchableDictionary extends Activity {
                     Uri data = Uri.withAppendedPath(DictionaryProvider.CONTENT_URI,
                                                     String.valueOf(id));
                     Log.d(TAG, "CONTENT_URI :" + DictionaryProvider.CONTENT_URI);
-                    Log.d(TAG, "Intent : " + wordIntent);
                     wordIntent.setData(data);
                     startActivity(wordIntent);
                 }

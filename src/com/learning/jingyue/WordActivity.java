@@ -36,13 +36,10 @@ import android.widget.TextView;
  * Displays a word and its definition.
  */
 public class WordActivity extends Activity {
-	
-	
     @SuppressLint("NewApi")
 	@Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.word);
 
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB){
