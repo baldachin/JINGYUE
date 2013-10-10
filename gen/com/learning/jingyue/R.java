@@ -21,48 +21,27 @@ public final class R {
         public static final int activity_vertical_margin=0x7f040001;
     }
     public static final class drawable {
-        public static final int ic_dictionary=0x7f020000;
-        public static final int ic_launcher=0x7f020001;
-        public static final int ic_menu_search=0x7f020002;
+        public static final int cover=0x7f020000;
+        public static final int ic_dictionary=0x7f020001;
+        public static final int ic_launcher=0x7f020002;
+        public static final int ic_menu_search=0x7f020003;
     }
     public static final class id {
-        public static final int action_settings=0x7f080000;
+        public static final int action_settings=0x7f070000;
     }
     public static final class layout {
         public static final int activity_loading=0x7f030000;
+        public static final int activity_main_list=0x7f030001;
     }
     public static final class menu {
-        public static final int loading=0x7f070000;
-    }
-    public static final class plurals {
-        /**  Shown above search results when we receive a search request. 
-         */
-        public static final int search_results=0x7f060000;
+        public static final int main_list=0x7f060000;
     }
     public static final class string {
-        public static final int action_settings=0x7f050008;
+        public static final int action_settings=0x7f050002;
         /**  The name of the application. 
          */
         public static final int app_name=0x7f050000;
-        public static final int hello_world=0x7f050009;
-        /**  The menu entry that invokes search. 
-         */
-        public static final int menu_search=0x7f050003;
-        /**  Search failure message. 
-         */
-        public static final int no_results=0x7f050006;
-        /**  The hint text that appears in the search box. 
-         */
-        public static final int search_hint=0x7f050002;
-        /**  General instructions in the main activity. 
-         */
-        public static final int search_instructions=0x7f050005;
-        /**  The label for use as a searchable item 
-         */
-        public static final int search_label=0x7f050001;
-        /**  The description that will show up in the search settings for this source. 
-         */
-        public static final int settings_description=0x7f050004;
-        public static final int title_activity_loading=0x7f050007;
+        public static final int hello_world=0x7f050003;
+        public static final int title_activity_main_list=0x7f050001;
     }
 }
