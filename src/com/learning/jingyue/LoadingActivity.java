@@ -3,14 +3,17 @@ package com.learning.jingyue;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.SystemClock;
 
 public class LoadingActivity extends Activity {
+	
+//	ListDatabase listDB;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_loading);
+		
+//		listDB = new ListDatabase(this);
 		
 		Intent intent = new Intent(this ,MainListActivity.class);
 		startActivity(intent);
