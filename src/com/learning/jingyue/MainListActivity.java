@@ -25,7 +25,8 @@ public class MainListActivity extends Activity {
         Cursor c = db.getList();
 		String[] from = new String[] {db.D_TYPE, db.D_NUM,db.D_WORD, db.D_DEFINITION};
 		int[] to = new int[] {R.id.textView_Type, R.id.textView_Num, R.id.textView_Word ,R.id.textView_Definition};
-        SimpleCursorAdapter list = new SimpleCursorAdapter(this, R.layout.main_list_row, c, from, to);
+        @SuppressWarnings("deprecation")
+		SimpleCursorAdapter list = new SimpleCursorAdapter(this, R.layout.main_list_row, c, from, to);
         mListView.setAdapter(list);
 
 	}

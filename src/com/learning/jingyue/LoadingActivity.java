@@ -3,6 +3,7 @@ package com.learning.jingyue;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
 public class LoadingActivity extends Activity {
 	
@@ -15,9 +16,17 @@ public class LoadingActivity extends Activity {
 		
 //		listDB = new ListDatabase(this);
 		
+		 
+	}
+	
+	public void openMainList (View v) {
 		Intent intent = new Intent(this ,MainListActivity.class);
 		startActivity(intent);
-		 
+	}
+	
+	public void openItemList (View v) {
+		Intent intent = new Intent(this ,ItemListActivity.class);
+		startActivity(intent);
 	}
 
 //	@Override

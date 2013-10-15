@@ -21,26 +21,26 @@ public class ListDatabase {
 	private static final String TAG = "ListDatabase";
 	
 //	数据库字段定义
-	public static final String D_SOURCE = "source";
-	public static final String D_TYPE = "type";
-	public static final String D_SUBTYPE = "subtype";
-	public static final String D_NUM = "num";
-	public static final String D_WORD = "word";
-	public static final String D_DEFINITION = "definition";
+	public final String D_SOURCE = "source";
+	public final String D_TYPE = "type";
+	public final String D_SUBTYPE = "subtype";
+	public final String D_NUM = "num";
+	public final String D_WORD = "word";
+	public final String D_DEFINITION = "definition";
 	
 //	数据库字段HashMap映射（使用buildColumnMap方法）
-    private static final HashMap<String,String> mColumnMap = buildColumnMap();
+    private final HashMap<String,String> mColumnMap = buildColumnMap();
 	
 //  数据库基础参数定义
-	private static final String DB_NAME = "JingYueList";
-	private static final String FTS_VIRTUAL_TABLE = "FTSlist_jian";
-	private static final int DB_VERSION = 1;
+	private final String DB_NAME = "JingYueList";
+	private final String FTS_VIRTUAL_TABLE = "FTSlist_jian";
+	private final int DB_VERSION = 1;
 	
 //	DBHelp声明
 	private final DBHelp mDbHelp;
 	
 //	buildColumnMap方法（在此绑定BaseColumns._ID实现_id字段）
-    private static HashMap<String,String> buildColumnMap() {
+    private HashMap<String,String> buildColumnMap() {
         HashMap<String,String> map = new HashMap<String,String>();
         map.put(D_SOURCE, D_SOURCE);
         map.put(D_TYPE, D_TYPE);
@@ -61,14 +61,14 @@ public class ListDatabase {
 	}
 	
 //	私有静态类DBHelp，扩展SQLiteOpenHelper类
-	private static class DBHelp extends SQLiteOpenHelper {
+	private class DBHelp extends SQLiteOpenHelper {
         
 //		声明Context及数据库
 		private final Context mHelperContext;
         private SQLiteDatabase mDatabase;
         
 //      定义SQL建表命令，使用VIRTUAL TABLE fts3格式
-        private static final String FTS_TABLE_CREATE =
+        private final String FTS_TABLE_CREATE =
                 "CREATE VIRTUAL TABLE " + FTS_VIRTUAL_TABLE +
                 " USING fts3 (" +
                 D_SOURCE + ", " +
