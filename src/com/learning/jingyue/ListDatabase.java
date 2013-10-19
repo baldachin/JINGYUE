@@ -175,6 +175,8 @@ public class ListDatabase {
         builder.setTables(FTS_VIRTUAL_TABLE);
         //使用哈希表映像字段
         builder.setProjectionMap(mColumnMap);
+        //配置去重(distinct)
+        builder.setDistinct(true);
 
         //ͨ通过builder实现query方法，使用方法参数获得指针
         Cursor cursor = builder.query(mDbHelp.getReadableDatabase(),
@@ -190,9 +192,9 @@ public class ListDatabase {
         return cursor;
     }
     
-    public Cursor getList() {
+    public Cursor getList(String[] columns) {
 
-        return query(null, null, null);
+        return query(null, null, columns);
     }
         
     /**

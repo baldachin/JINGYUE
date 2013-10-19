@@ -1,8 +1,11 @@
 package com.learning.jingyue;
 
 import android.app.Activity;
+import android.database.Cursor;
 import android.os.Bundle;
+import android.provider.BaseColumns;
 import android.support.v4.app.ListFragment;
+import android.support.v4.widget.SimpleCursorAdapter;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -20,6 +23,7 @@ import com.learning.jingyue.dummy.DummyContent;
  */
 public class ItemListFragment extends ListFragment {
 
+	ListDatabase db;
 	/**
 	 * The serialization (saved instance state) Bundle key representing the
 	 * activated item position. Only used on tablets.
@@ -71,9 +75,17 @@ public class ItemListFragment extends ListFragment {
 		super.onCreate(savedInstanceState);
 
 		// TODO: replace with a real list adapter.
-		setListAdapter(new ArrayAdapter<DummyContent.DummyItem>(getActivity(),
-				android.R.layout.simple_list_item_activated_1,
-				android.R.id.text1, DummyContent.ITEMS));
+		db = new ListDatabase(getActivity());
+//		String[] columns = new String[]{db.D_SOURCE,db.D_TYPE};
+        String[] columns = new String[] {BaseColumns._ID ,db.D_SOURCE ,db.D_TYPE ,db.D_SUBTYPE ,db.D_NUM ,db.D_WORD ,db.D_DEFINITION};
+		Cursor c = db.getList(columns);
+		String[] from = new String[] {db.D_SOURCE, db.D_TYPE};
+		int[] to = new int[] {android.R.id.text1,android.R.id.text2};
+		SimpleCursorAdapter adapter = new SimpleCursorAdapter(getActivity(), android.R.layout.simple_list_item_activated_2, c, from, to);
+		setListAdapter(adapter);
+//		setListAdapter(new ArrayAdapter<DummyContent.DummyItem>(getActivity(),
+//				android.R.layout.simple_list_item_activated_1,
+//				android.R.id.text1, DummyContent.ITEMS));
 	}
 
 	@Override
