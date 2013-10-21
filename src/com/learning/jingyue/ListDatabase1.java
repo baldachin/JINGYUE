@@ -16,7 +16,7 @@ import android.provider.BaseColumns;
 import android.text.TextUtils;
 import android.util.Log;
 
-public class ListDatabase {
+public class ListDatabase1 {
 	
 	private static final String TAG = "ListDatabase";
 	
@@ -27,36 +27,37 @@ public class ListDatabase {
 	public final String D_NUM = "num";
 	public final String D_WORD = "word";
 	public final String D_DEFINITION = "definition";
+	public final String D_ID = BaseColumns._ID;
 	
 //	数据库字段HashMap映射（使用buildColumnMap方法）
-    private final HashMap<String,String> mColumnMap = buildColumnMap();
+//    private final HashMap<String,String> mColumnMap = buildColumnMap();
 	
 //  数据库基础参数定义
 	private final String DB_NAME = "JingYueList";
-	private final String FTS_VIRTUAL_TABLE = "FTSlist_jian";
-	private final int DB_VERSION = 2;
+	private final String DB_TABLE1 = "list_jian";
+	private final int DB_VERSION = 3;
 	
 //	DBHelp声明
 	private final DBHelp mDbHelp;
 	private final SQLiteDatabase db;
 	
 //	buildColumnMap方法（在此绑定BaseColumns._ID实现_id字段）
-    private HashMap<String,String> buildColumnMap() {
-        HashMap<String,String> map = new HashMap<String,String>();
-        map.put(D_SOURCE, D_SOURCE);
-        map.put(D_TYPE, D_TYPE);
-        map.put(D_SUBTYPE, D_SUBTYPE);
-        map.put(D_NUM, D_NUM);
-        map.put(D_WORD, D_WORD);
-        map.put(D_DEFINITION, D_DEFINITION);
-        map.put(BaseColumns._ID, "rowid AS " +
-                BaseColumns._ID);
-        
-        return map;
-    }
+//    private HashMap<String,String> buildColumnMap() {
+//        HashMap<String,String> map = new HashMap<String,String>();
+//        map.put(D_SOURCE, D_SOURCE);
+//        map.put(D_TYPE, D_TYPE);
+//        map.put(D_SUBTYPE, D_SUBTYPE);
+//        map.put(D_NUM, D_NUM);
+//        map.put(D_WORD, D_WORD);
+//        map.put(D_DEFINITION, D_DEFINITION);
+//        map.put(BaseColumns._ID, "rowid AS " +
+//                BaseColumns._ID);
+//        
+//        return map;
+//    }
 	
 //  构造方法，实例DBHelp并获取数据库实现
-	public ListDatabase (Context context){
+	public ListDatabase1 (Context context){
 		mDbHelp = new DBHelp(context);
 		db = mDbHelp.getReadableDatabase();
 	}
@@ -69,10 +70,10 @@ public class ListDatabase {
         private SQLiteDatabase mDatabase;
         
 //      定义SQL建表命令，使用VIRTUAL TABLE fts3格式
-        private final String FTS_TABLE_CREATE =
-                "CREATE VIRTUAL TABLE " + FTS_VIRTUAL_TABLE +
-                " USING fts3 (" +
-                BaseColumns._ID + ", " +
+        private final String TABLE_CREATE =
+                "CREATE TABLE " + DB_TABLE1 +
+                " (" +
+                D_ID + ", " +
                 D_SOURCE + ", " +
                 D_TYPE + ", " +
                 D_SUBTYPE + ", " +
@@ -91,7 +92,7 @@ public class ListDatabase {
 		@Override
 		public void onCreate(SQLiteDatabase db) {
 			mDatabase = db;
-			mDatabase.execSQL(FTS_TABLE_CREATE);
+			mDatabase.execSQL(TABLE_CREATE);
 //			导入数据
 			loadDictionary();
 		}
@@ -145,14 +146,14 @@ public class ListDatabase {
             initialValues.put(D_WORD, word);
             initialValues.put(D_DEFINITION, definition);
 
-            return mDatabase.insert(FTS_VIRTUAL_TABLE, null, initialValues);
+            return mDatabase.insert(DB_TABLE1, null, initialValues);
         }
 
 		@Override
 		public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
             Log.w(TAG, "Upgrading database from version " + oldVersion + " to "
                     + newVersion + ", which will destroy all old data");
-            db.execSQL("DROP TABLE IF EXISTS " + FTS_VIRTUAL_TABLE);
+            db.execSQL("DROP TABLE IF EXISTS " + DB_TABLE1);
             onCreate(db);
 
 		}
@@ -174,11 +175,11 @@ public class ListDatabase {
          */
     	//ͨ通过SQLiteQueryBuilder实例配置query
         SQLiteQueryBuilder builder = new SQLiteQueryBuilder();
-        builder.setTables(FTS_VIRTUAL_TABLE);
+        builder.setTables(DB_TABLE1);
         //使用哈希表映像字段
-        builder.setProjectionMap(mColumnMap);
+//        builder.setProjectionMap(mColumnMap);
         //配置去重(distinct)
-//        builder.setDistinct(true);
+        builder.setDistinct(true);
 
         //ͨ通过builder实现query方法，使用方法参数获得指针
         Cursor cursor = builder.query(db, columns, selection, selectionArgs, null, null, null);
@@ -195,9 +196,10 @@ public class ListDatabase {
         return cursor;
     }
     
-    public Cursor getList() {
+    public Cursor getList(String[] columns) {
     	
-        return query(null,null,null);
+//    	Cursor c = db.query("typelist" ,null ,null ,null ,null ,null,null);
+        return query(null,null,columns);
     }
         
     /**
@@ -209,7 +211,7 @@ public class ListDatabase {
      */
     //通过query参数获得全文检索结果
     public Cursor getWordMatches(String query, String[] columns) {
-        String selection = FTS_VIRTUAL_TABLE + " MATCH ?";
+        String selection = DB_TABLE1 + " MATCH ?";
         String[] selectionArgs = new String[] {query+"*"};
 
         return query(selection, selectionArgs, columns);

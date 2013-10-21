@@ -23,7 +23,7 @@ import com.learning.jingyue.dummy.DummyContent;
  */
 public class ItemListFragment extends ListFragment {
 
-	ListDatabase db;
+	ListDatabase1 db;
 	/**
 	 * The serialization (saved instance state) Bundle key representing the
 	 * activated item position. Only used on tablets.
@@ -75,11 +75,11 @@ public class ItemListFragment extends ListFragment {
 		super.onCreate(savedInstanceState);
 
 		// TODO: replace with a real list adapter.
-		db = new ListDatabase(getActivity());
+		db = new ListDatabase1(getActivity());
 //		String[] columns = new String[]{db.D_SOURCE,db.D_TYPE};
-        String[] columns = new String[] {BaseColumns._ID ,db.D_SOURCE ,db.D_TYPE ,db.D_SUBTYPE ,db.D_NUM ,db.D_WORD ,db.D_DEFINITION};
+        String[] columns = new String[] {BaseColumns._ID ,db.D_SOURCE ,db.D_TYPE};
 		Cursor c = db.getList(columns);
-		String[] from = new String[] {db.D_SOURCE, db.D_TYPE};
+		String[] from = new String[] {db.D_TYPE, db.D_SOURCE};
 		int[] to = new int[] {android.R.id.text1,android.R.id.text2};
 		SimpleCursorAdapter adapter = new SimpleCursorAdapter(getActivity(), android.R.layout.simple_list_item_activated_2, c, from, to);
 		setListAdapter(adapter);
