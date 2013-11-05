@@ -1,5 +1,12 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
 
+    <item 
+        android:id="@+id/action_search"
+        android:title="@string/action_search"
+        android:actionViewClass="android.widget.SearchView"
+        android:showAsAction="collapseActionView|ifRoom"
+        android:icon="@android:drawable/ic_menu_search"
+        />
     <item
         android:id="@+id/action_settings"
         android:orderInCategory="100"

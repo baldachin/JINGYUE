@@ -25,7 +25,7 @@ public class LoadingActivity extends Activity {
 	}
 	
 	public void openItemList (View v) {
-		Intent intent = new Intent(this ,ItemListActivity.class);
+		Intent intent = new Intent(this ,MainListActivity.class);
 		startActivity(intent);
 	}
 

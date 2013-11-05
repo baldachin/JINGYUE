@@ -72,7 +72,7 @@ public class ListDatabase {
         private final String FTS_TABLE_CREATE =
                 "CREATE VIRTUAL TABLE " + FTS_VIRTUAL_TABLE +
                 " USING fts3 (" +
-                BaseColumns._ID + ", " +
+//                BaseColumns._ID + ", " +
                 D_SOURCE + ", " +
                 D_TYPE + ", " +
                 D_SUBTYPE + ", " +
@@ -210,7 +210,7 @@ public class ListDatabase {
     //通过query参数获得全文检索结果
     public Cursor getWordMatches(String query, String[] columns) {
         String selection = FTS_VIRTUAL_TABLE + " MATCH ?";
-        String[] selectionArgs = new String[] {query+"*"};
+        String[] selectionArgs = new String[] {"*"+query+"*"};
 
         return query(selection, selectionArgs, columns);
 

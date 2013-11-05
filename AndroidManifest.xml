@@ -31,27 +31,17 @@
         <activity
             android:name="com.learning.jingyue.LoadingActivity"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name="com.learning.jingyue.MainListActivity"
             android:label="@string/title_activity_main_list" >
-        </activity>
-        <activity
-            android:name="com.learning.jingyue.ItemListActivity"
-            android:label="@string/title_item_list" >
-        </activity>
-        <activity
-            android:name="com.learning.jingyue.ItemDetailActivity"
-            android:label="@string/title_item_detail"
-            android:parentActivityName=".ItemListActivity" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".ItemListActivity" />
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+                <action android:name="android.intent.action.SEARCH"/>
+            </intent-filter>
+            <meta-data android:name="android.app.searchable"
+                android:resource="@xml/searchable"/>
         </activity>
     </application>
 
